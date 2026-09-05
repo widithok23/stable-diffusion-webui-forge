@@ -9,7 +9,7 @@ diskcache==5.6.3
 einops==0.4.1
 facexlib==0.3.0
 fastapi==0.104.1; python_version < '3.13'
-fastapi>=0.115.0; python_version >= '3.13'
+fastapi==0.111.1; python_version >= '3.13'
 gradio==4.40.0; python_version < '3.13'
 gradio>=4.44.0,<5.0; python_version >= '3.13'
 httpcore==0.15
