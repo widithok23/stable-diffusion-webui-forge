@@ -44,7 +44,16 @@ fi
 # python3 executable
 if [[ -z "${python_cmd}" ]]
 then
-  python_cmd="python3.10"
+  # Try to find a supported Python version (3.10-3.13)
+  for pyver in python3.13 python3.12 python3.11 python3.10 python3; do
+    if command -v "$pyver" &> /dev/null; then
+      python_cmd="$pyver"
+      break
+    fi
+  done
+  if [[ -z "${python_cmd}" ]]; then
+    python_cmd="python3"
+  fi
 fi
 if [[ ! -x "$(command -v "${python_cmd}")" ]]
 then
