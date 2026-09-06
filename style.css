@@ -1764,5 +1764,24 @@ body.resizing .resize-handle {
         position: relative !important;
         top: 0 !important;
     }
+
+    /* Layout & Flex Fixes for Mobile to prevent messy wrapping */
+    .gradio-row, .wrap, div.form, .block {
+        flex-direction: column !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Memaksa kolom utama WebUI (txt2img/img2img input & output) menjadi 1 kolom vertikal */
+    #txt2img_root, #img2img_root, .gradio-container > .main, .wrap > div {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Mencegah elemen input meluber keluar layar */
+    input, textarea, select, .gradio-dropdown, .gradio-slider {
+        max-width: 100% !important;
+    }
 }
 
