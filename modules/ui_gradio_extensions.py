@@ -25,8 +25,6 @@ def javascript_html():
     if shared.cmd_opts.theme:
         head += f'<script type="text/javascript">set_theme(\"{shared.cmd_opts.theme}\");</script>\n'
 
-    head += '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-
     return head
 
 
