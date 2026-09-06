@@ -1827,3 +1827,77 @@ body.resizing .resize-handle {
     }
 }
 
+/* ========================================================== */
+/* UI Mode Toggle Switcher (Mobile vs Desktop Mode)           */
+/* ========================================================== */
+#ui-mode-switcher-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+    background: var(--background-fill-secondary);
+    border-radius: 9999px;
+    border: 1px solid var(--border-color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+#ui-mode-switcher-container label {
+    cursor: pointer;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+}
+
+#ui-mode-switcher-container input[type="radio"] {
+    display: none;
+}
+
+#ui-mode-switcher-container input[type="radio"]:checked + span {
+    background: var(--primary-500);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Force Mobile Mode when active via toggle */
+body.force-mobile-mode .gradio-row:not(:has(.tab-nav)), 
+body.force-mobile-mode .wrap:not(:has(.tab-nav)), 
+body.force-mobile-mode div.form:not(:has(.tab-nav)), 
+body.force-mobile-mode .block:not(:has(.tab-nav)) {
+    flex-direction: column !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+body.force-mobile-mode #txt2img_root, 
+body.force-mobile-mode #img2img_root, 
+body.force-mobile-mode .gradio-container > .main, 
+body.force-mobile-mode .wrap > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+}
+
+body.force-mobile-mode div.tab-nav, 
+body.force-mobile-mode .tab-nav, 
+body.force-mobile-mode .tabs > .tab-nav {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    flex-direction: row !important;
+    max-width: 100% !important;
+}
+
+body.force-mobile-mode button.primary, 
+body.force-mobile-mode button.secondary, 
+body.force-mobile-mode .gradio-button {
+    min-height: 2.8rem !important;
+    font-size: 1rem !important;
+}
+
+

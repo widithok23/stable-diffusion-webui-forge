@@ -466,3 +466,37 @@ onAfterUiUpdate(function() {
     });
 });
 
+// UI Mode Switcher (Desktop vs Mobile)
+onAfterUiUpdate(function() {
+    var quicksettings = gradioApp().getElementById('quicksettings');
+    if (!quicksettings || quicksettings.querySelector('#ui-mode-switcher-container')) return;
+
+    var container = document.createElement('div');
+    container.id = 'ui-mode-switcher-container';
+    
+    var isMobile = document.body.classList.contains('force-mobile-mode');
+    
+    container.innerHTML = `
+        <label>
+            <input type="radio" name="ui-mode" value="desktop" ${!isMobile ? 'checked' : ''}>
+            <span>Desktop</span>
+        </label>
+        <label>
+            <input type="radio" name="ui-mode" value="mobile" ${isMobile ? 'checked' : ''}>
+            <span>Mobile</span>
+        </label>
+    `;
+
+    container.querySelectorAll('input').forEach(function(radio) {
+        radio.addEventListener('change', function(e) {
+            if (e.target.value === 'mobile') {
+                document.body.classList.add('force-mobile-mode');
+            } else {
+                document.body.classList.remove('force-mobile-mode');
+            }
+        });
+    });
+
+    quicksettings.appendChild(container);
+});
+
