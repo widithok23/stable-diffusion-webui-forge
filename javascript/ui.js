@@ -467,6 +467,16 @@ onAfterUiUpdate(function() {
 });
 
 // UI Mode Switcher (Desktop vs Mobile)
+(function() {
+    var savedMode = localStorage.getItem('forge_ui_mode');
+    if (!savedMode && window.innerWidth <= 768) {
+        savedMode = 'mobile';
+    }
+    if (savedMode === 'mobile') {
+        document.body.classList.add('force-mobile-mode');
+    }
+})();
+
 onAfterUiUpdate(function() {
     var quicksettings = gradioApp().getElementById('quicksettings');
     if (!quicksettings || quicksettings.querySelector('#ui-mode-switcher-container')) return;
@@ -477,22 +487,26 @@ onAfterUiUpdate(function() {
     var isMobile = document.body.classList.contains('force-mobile-mode');
     
     container.innerHTML = `
-        <label>
+        <label class="ui-mode-btn ${!isMobile ? 'active' : ''}">
             <input type="radio" name="ui-mode" value="desktop" ${!isMobile ? 'checked' : ''}>
-            <span>Desktop</span>
+            <span>🖥️ Desktop</span>
         </label>
-        <label>
+        <label class="ui-mode-btn ${isMobile ? 'active' : ''}">
             <input type="radio" name="ui-mode" value="mobile" ${isMobile ? 'checked' : ''}>
-            <span>Mobile</span>
+            <span>📱 Mobile</span>
         </label>
     `;
 
     container.querySelectorAll('input').forEach(function(radio) {
         radio.addEventListener('change', function(e) {
+            container.querySelectorAll('.ui-mode-btn').forEach(b => b.classList.remove('active'));
+            radio.parentElement.classList.add('active');
             if (e.target.value === 'mobile') {
                 document.body.classList.add('force-mobile-mode');
+                localStorage.setItem('forge_ui_mode', 'mobile');
             } else {
                 document.body.classList.remove('force-mobile-mode');
+                localStorage.setItem('forge_ui_mode', 'desktop');
             }
         });
     });

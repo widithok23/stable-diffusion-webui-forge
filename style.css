@@ -1833,33 +1833,36 @@ body.resizing .resize-handle {
 #ui-mode-switcher-container {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
     margin-left: auto;
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.3rem;
     background: var(--background-fill-secondary);
-    border-radius: 9999px;
+    border-radius: 20px;
     border: 1px solid var(--border-color-primary);
     font-size: 0.85rem;
     font-weight: 600;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-#ui-mode-switcher-container label {
+#ui-mode-switcher-container .ui-mode-btn {
     cursor: pointer;
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-    transition: all 0.2s ease;
+    padding: 0.35rem 0.75rem;
+    border-radius: 16px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--body-text-color-subdued, #888);
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+#ui-mode-switcher-container .ui-mode-btn.active {
+    background: var(--button-primary-background-fill, #2563eb);
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #ui-mode-switcher-container input[type="radio"] {
     display: none;
-}
-
-#ui-mode-switcher-container input[type="radio"]:checked + span {
-    background: var(--primary-500);
-    color: white;
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 /* Force Mobile Mode when active via toggle */
