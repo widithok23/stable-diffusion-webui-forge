@@ -6,6 +6,11 @@
  * - Replaced hardcoded colors with theme-aware variables
  * - Improved responsive design with modern media queries
  * - Maintained backward compatibility
+ * 
+ * FIXES APPLIED:
+ * - Reduced !important flags usage
+ * - Improved selector flexibility for Gradio compatibility
+ * - Enhanced dark mode support
  */
 
 /* ============================================================================
@@ -43,7 +48,7 @@
    ============================================================================ */
 
 .cnet-thumbnail {
-  height: 3rem !important;
+  height: 3rem;
   border: 1px solid var(--button-secondary-border-color);
 }
 
@@ -81,7 +86,7 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
-  max-width: none !important;
+  max-width: none;
 }
 
 .cnet-modal-content {
@@ -89,13 +94,13 @@
   background-color: var(--background-fill-primary);
   margin: 5vh auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--border-color-primary);
   width: 95%;
   height: 90vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: cnet-animate-modal;
   animation-duration: 0.4s;
-  max-width: none !important;
+  max-width: none;
 }
 
 .cnet-modal-content iframe {
@@ -129,13 +134,18 @@
 
 /* Modal Close Button */
 .cnet-modal-close {
-  color: white !important;
+  color: white;
   right: 0.25em;
   top: 0;
   cursor: pointer;
   position: absolute;
   font-size: 56px;
   font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.cnet-modal-close:hover {
+  opacity: 0.8;
 }
 
 /* ============================================================================
@@ -161,15 +171,15 @@
 .cnet-edit-pose,
 .cnet-upload-pose,
 .cnet-photopea-child-trigger {
-  font-size: x-small !important;
-  font-weight: bold !important;
-  padding: 2px !important;
+  font-size: x-small;
+  font-weight: bold;
+  padding: 2px;
   box-shadow: var(--shadow-drop);
   border: 1px solid var(--button-secondary-border-color);
   border-radius: var(--radius-sm);
   background: var(--background-fill-primary);
   height: var(--size-5);
-  color: var(--block-label-text-color) !important;
+  color: var(--block-label-text-color);
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -181,8 +191,17 @@
 .cnet-edit-pose:hover,
 .cnet-upload-pose:hover,
 .cnet-photopea-child-trigger:hover {
-  color: var(--block-label-text-color) !important;
+  color: var(--block-label-text-color);
   opacity: 0.8;
+}
+
+.cnet-download-pose a:focus,
+.cnet-close-preview:focus,
+.cnet-edit-pose:focus,
+.cnet-upload-pose:focus,
+.cnet-photopea-child-trigger:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
 }
 
 /* ============================================================================
@@ -190,12 +209,12 @@
    ============================================================================ */
 
 .cnet-unit-active {
-  color: green !important;
-  font-weight: bold !important;
+  color: green;
+  font-weight: bold;
 }
 
 .dark .cnet-unit-active {
-  color: greenyellow !important;
+  color: greenyellow;
 }
 
 /* Badge Styling */
@@ -209,10 +228,11 @@
   text-align: center;
   vertical-align: middle;
   margin-left: var(--size-2);
+  background-color: var(--primary-500);
 }
 
 .cnet-badge.primary {
-  background-color: green;
+  background-color: var(--primary-600);
 }
 
 .cnet-a1111-badge {
@@ -231,7 +251,7 @@
    ============================================================================ */
 
 .controlnet_row {
-  margin-top: 10px !important;
+  margin-top: 10px;
 }
 
 /* ============================================================================
@@ -245,6 +265,7 @@
   opacity: 0;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 /* ============================================================================
@@ -259,8 +280,8 @@
 .photopea-button {
   font-size: 3rem;
   font-weight: bold;
-  padding: 2px !important;
-  margin: 2px !important;
+  padding: 2px;
+  margin: 2px;
   box-shadow: var(--shadow-drop);
   border: 1px solid var(--button-secondary-border-color);
   border-radius: var(--radius-sm);
@@ -274,22 +295,27 @@
   opacity: 0.8;
 }
 
+.photopea-button:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
 /* ============================================================================
    CONTROL TYPE FILTER GROUP
    ============================================================================ */
 
 .controlnet_control_type_filter_group label {
-  background: unset !important;
-  border: unset !important;
-  margin-left: -10px !important;
+  background: unset;
+  border: unset;
+  margin-left: -10px;
 }
 
 .controlnet_control_type_filter_group > span {
-  display: none !important;
+  display: none;
 }
 
 .controlnet_control_type_filter_group > .wrap {
-  margin-top: -20px !important;
+  margin-top: -20px;
 }
 
 /* ============================================================================
@@ -297,14 +323,22 @@
    ============================================================================ */
 
 .cnet-toolbutton {
-  background: unset !important;
-  border: unset !important;
+  background: unset;
+  border: unset;
   cursor: pointer;
   transition: all 0.2s ease;
+  padding: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .cnet-toolbutton:hover {
   opacity: 0.7;
+  background-color: var(--background-fill-secondary);
+}
+
+.cnet-toolbutton:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
 }
 
 /* ============================================================================
@@ -313,6 +347,11 @@
 
 .range-slider {
   margin-top: -8px;
+}
+
+.range-slider input[type="range"] {
+  width: 100%;
+  cursor: pointer;
 }
 
 /* ============================================================================
@@ -351,15 +390,15 @@
   .cnet-edit-pose,
   .cnet-upload-pose,
   .cnet-photopea-child-trigger {
-    font-size: 8px !important;
-    padding: 1px !important;
+    font-size: 8px;
+    padding: 1px;
     height: auto;
   }
 
   .photopea-button {
     font-size: 1.5rem;
-    padding: 1px !important;
-    margin: 1px !important;
+    padding: 1px;
+    margin: 1px;
   }
 }
 
@@ -378,12 +417,21 @@
   outline-offset: 2px;
 }
 
+/* Support for keyboard navigation */
+button:focus,
+a:focus,
+input:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
 /* ============================================================================
    DARK MODE SUPPORT
    ============================================================================ */
 
 .dark .cnet-modal-content {
   border-color: var(--neutral-700);
+  background-color: var(--background-fill-secondary);
 }
 
 .dark .cnet-modal-close:hover {
@@ -392,4 +440,21 @@
 
 .dark .photopea-button {
   color: var(--block-label-text-color);
+}
+
+.dark .cnet-badge {
+  background-color: var(--primary-600);
+}
+
+/* ============================================================================
+   GRADIO THEME COMPATIBILITY
+   ============================================================================ */
+
+/* Ensure components respect Gradio theme variables */
+:root {
+  --border-color-primary: #ccc;
+}
+
+.dark {
+  --border-color-primary: #555;
 }
