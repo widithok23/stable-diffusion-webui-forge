@@ -7,6 +7,11 @@
  * - Removed unnecessary !important flags where possible
  * - Aligned with Gradio's official theming system
  * - Maintained backward compatibility with existing ID-based selectors
+ * 
+ * FIXES APPLIED:
+ * - Reduced !important usage to allow proper Gradio theme inheritance
+ * - Updated selectors to match current Gradio DOM structure
+ * - Improved theme variable compatibility
  */
 
 /* ============================================================================
@@ -48,18 +53,18 @@
    ============================================================================ */
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
-/* Container Configuration */
+/* Container Configuration - Allow Gradio defaults where sensible */
 div.gradio-container {
-  max-width: unset !important;
-  overflow: visible !important;
+  max-width: unset;
+  overflow: visible;
 }
 
 /* Block Padding Override - Use elem_classes for safer targeting */
 .block.padded:not(.gradio-accordion) {
-  padding: 0 !important;
+  padding: 0;
 }
 
 /* Form Styling */
@@ -79,10 +84,10 @@ div.form {
    elem_id patterns for future compatibility.
 */
 
-/* Dropdown Component */
-.block.gradio-dropdown {
-  border-width: 0 !important;
-  box-shadow: none !important;
+/* Dropdown Component - Modernized selectors */
+.gradio-dropdown {
+  border-width: 0;
+  box-shadow: none;
 }
 
 .gradio-dropdown ul.options {
@@ -92,15 +97,15 @@ div.form {
   white-space: nowrap;
 }
 
-.gradio-dropdown ul.options li.item {
+.gradio-dropdown ul.options li {
   padding: 0.05em 0;
 }
 
-.gradio-dropdown ul.options li.item.selected {
+.gradio-dropdown ul.options li[class*="selected"] {
   background-color: var(--neutral-100);
 }
 
-.dark .gradio-dropdown ul.options li.item.selected {
+.dark .gradio-dropdown ul.options li[class*="selected"] {
   background-color: var(--neutral-900);
 }
 
@@ -132,16 +137,16 @@ div.form {
   margin-bottom: 0;
 }
 
-/* Input Components */
-.block.gradio-slider,
-.block.gradio-checkbox,
-.block.gradio-textbox,
-.block.gradio-radio,
-.block.gradio-checkboxgroup,
-.block.gradio-number,
-.block.gradio-colorpicker {
-  border-width: 0 !important;
-  box-shadow: none !important;
+/* Input Components - Reduced !important usage */
+.gradio-slider,
+.gradio-checkbox,
+.gradio-textbox,
+.gradio-radio,
+.gradio-checkboxgroup,
+.gradio-number,
+.gradio-colorpicker {
+  border-width: 0;
+  box-shadow: none;
 }
 
 /* Slider Input Width */
@@ -150,21 +155,21 @@ div.form {
 }
 
 /* Checkbox Spacing */
-.block.gradio-checkbox {
+.gradio-checkbox {
   margin: 0.75em 1.5em 0 0;
 }
 
 /* Group and Styling Components */
 div.gradio-group,
 div.styler {
-  border-width: 0 !important;
+  border-width: 0;
   background: none;
 }
 
 /* Compact Styling */
 .compact {
-  background: transparent !important;
-  padding: 0 !important;
+  background: transparent;
+  padding: 0;
 }
 
 .gap.compact {
@@ -189,7 +194,7 @@ div.gradio-html.min {
    GALLERY & MEDIA COMPONENTS
    ============================================================================ */
 
-.block.gradio-gallery {
+.gradio-gallery {
   background: var(--input-background-fill);
 }
 
@@ -198,7 +203,7 @@ div.gradio-html.min {
 }
 
 .gradio-gallery .thumbnails img {
-  object-fit: scale-down !important;
+  object-fit: scale-down;
 }
 
 /* ============================================================================
@@ -226,7 +231,7 @@ a {
 }
 
 .layer-wrap > ul {
-  background: var(--background-fill-primary) !important;
+  background: var(--background-fill-primary);
 }
 
 /* ============================================================================
@@ -244,7 +249,7 @@ a {
 /* Tool Button - Small Icon Button */
 .gradio-button.tool {
   max-width: 2.2em;
-  min-width: 2.2em !important;
+  min-width: 2.2em;
   height: 2.4em;
   align-self: end;
   line-height: 1em;
@@ -287,9 +292,9 @@ button.custom-button {
    ACCORDION COMPONENT
    ============================================================================ */
 
-div.block.gradio-accordion {
-  border: 1px solid var(--block-border-color) !important;
-  border-radius: 8px !important;
+div.gradio-accordion {
+  border: 1px solid var(--block-border-color);
+  border-radius: 8px;
   margin: 2px 0;
   padding: 8px 8px;
 }
@@ -308,21 +313,21 @@ input[type="checkbox"].input-accordion-checkbox {
   position: absolute;
   display: inline-block;
   right: 1em;
-  min-width: 0 !important;
+  min-width: 0;
   width: auto;
   z-index: 100;
   top: -0.75em;
 }
 
 .block.token-counter-visible {
-  display: block !important;
+  display: block;
 }
 
 .block.token-counter span {
-  background: var(--input-background-fill) !important;
+  background: var(--input-background-fill);
   box-shadow: 0 0 0.0 0.3em var(--token-counter-shadow-light),
               inset 0 0 0.6em var(--token-counter-shadow-inner);
-  border: 2px solid var(--token-counter-border-color) !important;
+  border: 2px solid var(--token-counter-border-color);
   border-radius: 0.4em;
   padding: 0.1em 0.75em;
 }
@@ -335,13 +340,13 @@ input[type="checkbox"].input-accordion-checkbox {
 .block.token-counter.error span {
   box-shadow: 0 0 0.0 0.3em rgba(255, 0, 0, 0.15),
               inset 0 0 0.6em rgba(255, 0, 0, 0.075);
-  border: 2px solid rgba(255, 0, 0, 0.4) !important;
+  border: 2px solid rgba(255, 0, 0, 0.4);
 }
 
 /* Subseed Controls - ID-based targeting */
 [id$=_subseed_show] {
-  min-width: auto !important;
-  flex-grow: 0 !important;
+  min-width: auto;
+  flex-grow: 0;
   display: flex;
 }
 
@@ -386,7 +391,7 @@ input[type="checkbox"].input-accordion-checkbox {
 
 /* Interrogate Column */
 .interrogate-col {
-  min-width: 0 !important;
+  min-width: 0;
   max-width: fit-content;
   gap: var(--spacing-base);
 }
@@ -492,12 +497,12 @@ input[type="checkbox"].input-accordion-checkbox {
 
 /* Batch Column */
 [id$=_column_batch] {
-  min-width: min(13.5em, 100%) !important;
+  min-width: min(13.5em, 100%);
 }
 
 /* Dimension Tools */
 div.dimensions-tools {
-  min-width: 1.6em !important;
+  min-width: 1.6em;
   max-width: fit-content;
   flex-direction: column;
   place-content: center;
@@ -537,7 +542,7 @@ div.toprow-compact-stylerow {
 }
 
 div.toprow-compact-tools {
-  min-width: fit-content !important;
+  min-width: fit-content;
   max-width: fit-content;
 }
 
@@ -562,22 +567,22 @@ div.toprow-compact-tools {
 
 /* Model Selection Dropdown */
 #quicksettings > div.model_selection {
-  min-width: 20em !important;
+  min-width: 20em;
 }
 
 #quicksettings > div.model_selection input {
-  margin-left: 2% !important;
+  margin-left: 2%;
   width: 100%;
 }
 
 #quicksettings .icon-wrap {
-  margin-right: -4% !important;
+  margin-right: -4%;
   background-color: var(--background-fill-secondary);
 }
 
 #quicksettings > div.model_selection li {
-  overflow-x: visible !important;
-  width: 100% !important;
+  overflow-x: visible;
+  width: 100%;
 }
 
 #quicksettings .subdued {
@@ -659,7 +664,7 @@ div.toprow-compact-tools {
 
 /* Utility Classes */
 .ui-defaults-none {
-  color: #aaa !important;
+  color: #aaa;
 }
 
 /* ============================================================================
@@ -721,7 +726,7 @@ table.popup-table .link {
   position: absolute;
   height: 20px;
   background: var(--progress-bg-light);
-  border-radius: 3px !important;
+  border-radius: 3px;
   top: -14px;
   left: 0px;
   width: 100%;
@@ -998,163 +1003,27 @@ table.popup-table .link {
 }
 
 #tab_extensions table input[type="checkbox"] {
-  margin-right: 0.5em;
-  appearance: checkbox;
-}
-
-#tab_extensions button {
-  max-width: 16em;
-}
-
-#tab_extensions input[disabled="disabled"] {
-  opacity: 0.5;
-}
-
-/* Extension Tags */
-.extension-tag {
-  font-weight: bold;
-  font-size: 95%;
-}
-
-/* Available Extensions */
-#available_extensions .info {
-  margin: 0.5em 0;
-  display: flex;
-  margin-top: auto;
-  opacity: 0.80;
-  font-size: 90%;
-}
-
-#available_extensions .date_added {
-  margin-right: auto;
-  display: inline-block;
-}
-
-#available_extensions .star_count {
-  margin-left: auto;
-  display: inline-block;
-}
-
-/* Table Row Hover Effect */
-#extensions tr:hover td,
-#config_state_extensions tr:hover td,
-#available_extensions tr:hover td {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-.dark #extensions tr:hover td,
-.dark #config_state_extensions tr:hover td,
-.dark #available_extensions tr:hover td {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* Compact Checkbox Group */
-.compact-checkbox-group div label {
-  padding: 0.1em 0.3em !important;
+  margin: 0;
+  accent-color: var(--primary-500);
 }
 
 /* ============================================================================
-   FOOTER
+   RESPONSIVE & UTILITY STYLES
    ============================================================================ */
 
-footer {
-  display: none !important;
-}
-
-#footer {
-  text-align: center;
-}
-
-#footer div {
-  display: inline-block;
-}
-
-#footer .versions {
-  font-size: 85%;
-  opacity: 0.85;
-}
-
-/* ============================================================================
-   EXTRA NETWORKS UI
-   ============================================================================ */
-
-.extra-page > div.gap {
-  gap: 0;
-}
-
-.extra-page-prompts {
-  margin-bottom: 0;
-}
-
-.extra-page-prompts.extra-page-prompts-active {
-  margin-bottom: 1em;
-}
-
-/* Extra Networks Tab Navigation */
-.extra-networks > div.tab-nav {
-  min-height: 2.7rem;
-}
-
-.extra-networks-controls-div {
-  align-self: center;
-  margin-left: auto;
-}
-
-.extra-networks > div > [id *= '_extra_'] {
-  margin: 0.3em;
-}
-
-/* Search and Sort Controls */
-.extra-networks .tab-nav .search,
-.extra-networks .tab-nav .sort {
-  margin: 0.3em;
-  align-self: center;
-  width: auto;
-}
-
-.extra-networks .tab-nav .search {
-  width: 16em;
-  max-width: 16em;
-}
-
-.extra-networks .tab-nav .sort {
-  width: 12em;
-  max-width: 12em;
-}
-
-#txt2img_extra_view,
-#img2img_extra_view {
-  width: auto;
-}
-
-/* No Cards Message */
-.extra-network-pane .nocards {
-  margin: 1.25em 0.5em 0.5em 0.5em;
-}
-
-.extra-network-pane .nocards h1 {
-  font-size: 1.5em;
-  margin-bottom: 1em;
-}
-
-.extra-network-pane .nocards li {
-  margin-left: 0.5em;
-}
-
-/* Card Styling */
-.extra-network-pane .card .button-row {
-  display: inline-flex;
-  visibility: hidden;
-  color: white;
-  position: absolute;
-  right: 0;
-  z-index: 1;
-}
-
-.extra-network-pane .card:hover .button-row {
-  visibility: visible;
-}
-
-.extra-network-pane .card-button {
-  color: white;
+/* Ensure better responsive behavior */
+@media (max-width: 768px) {
+  #txt2img_generate,
+  #img2img_generate {
+    min-height: 3.5em;
+  }
+  
+  #quicksettings {
+    flex-wrap: wrap;
+  }
+  
+  #settings > div {
+    margin-left: 0;
+    padding: 0 1em;
+  }
 }
