@@ -1788,5 +1788,31 @@ body.resizing .resize-handle {
     input, textarea, select, .gradio-dropdown, .gradio-slider {
         max-width: 100% !important;
     }
+
+    /* Quicksettings & Top Row (Checkpoint, VAE, GPU weight, dll) menjadi Wrap Content / Compact */
+    #quicksettings {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.25rem !important;
+        align-items: center !important;
+    }
+
+    #quicksettings > div, #quicksettings > fieldset {
+        flex: 1 1 auto !important;
+        min-width: 120px !important;
+        max-width: 100% !important;
+        width: auto !important;
+    }
+
+    #quicksettings > div.model_selection {
+        min-width: 100% !important;
+    }
+
+    /* Tombol refresh dan tombol aksi kecil agar menyesuaikan konten (wrap content) */
+    button[id$="_reload"], button[id*="refresh"], .gr-button-small, .cnet-toolbutton {
+        flex: 0 1 auto !important;
+        width: auto !important;
+        min-width: unset !important;
+    }
 }
 
