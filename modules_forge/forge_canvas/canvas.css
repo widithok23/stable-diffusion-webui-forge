@@ -1,179 +1,544 @@
+/**
+ * Forge Canvas Component - Stylesheet
+ * 
+ * MODERNIZATION NOTES (2026):
+ * - Migrated to Gradio CSS variables for theme responsiveness
+ * - Replaced hardcoded colors with theme-aware variables
+ * - Added dark mode and light mode support
+ * - Improved accessibility with focus states
+ * - Reduced unnecessary !important flags
+ * - Better organized with comprehensive documentation
+ */
+
+/* ============================================================================
+   CSS CUSTOM PROPERTIES & THEME VARIABLES
+   ============================================================================ */
+
+:root {
+  /* Canvas sizing */
+  --forge-container-height: 512px;
+  --forge-toolbar-height: 6px;
+  
+  /* Canvas background colors - responsive to theme */
+  --forge-bg-dark: #202020;
+  --forge-bg-light: #cccccc;
+  --forge-checkerboard-light: #eee;
+  --forge-checkerboard-dark: #e0e0e0;
+  
+  /* Toolbar styling */
+  --forge-toolbar-bg: rgba(47, 47, 47, 0.8);
+  --forge-btn-bg: #4a4a4a;
+  --forge-btn-bg-hover: #5e5e5e;
+  --forge-btn-bg-active: #3e3e3e;
+  --forge-btn-color: white;
+  
+  /* Resize line */
+  --forge-resize-line-primary: grey;
+  --forge-resize-line-secondary: darkgrey;
+  
+  /* Transitions */
+  --forge-transition-fast: 0.3s ease;
+}
+
+.dark {
+  /* Dark mode overrides - use Gradio's dark theme background */
+  --forge-bg-light: var(--background-fill-secondary, #1a1a1a);
+  --forge-checkerboard-light: #2a2a2a;
+  --forge-checkerboard-dark: #1a1a1a;
+}
+
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
 .forge-container {
-    width: 100%;
-    height: 512px;
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  height: var(--forge-container-height);
+  position: relative;
+  overflow: hidden;
 }
 
+/* ============================================================================
+   IMAGE CONTAINER - BACKGROUND PATTERNS
+   ============================================================================ */
+
+/**
+ * Plain Background Container
+ * Used for dark/transparent backgrounds (e.g., dark mode preview)
+ */
 .forge-image-container-plain {
-    width: 100%;
-    height: calc(100% - 6px);
-    position: relative;
-    overflow: hidden;
-    background-color: #202020;
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+  width: 100%;
+  height: calc(100% - var(--forge-toolbar-height));
+  position: relative;
+  overflow: hidden;
+  background-color: var(--forge-bg-dark);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
 }
 
+/**
+ * Light Background Container with Checkerboard Pattern
+ * Shows transparency through checkerboard (standard in image editors)
+ */
 .forge-image-container {
-    width: 100%;
-    height: calc(100% - 6px);
-    position: relative;
-    overflow: hidden;
-    background-color: #cccccc;
-    background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee),
-    linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+  width: 100%;
+  height: calc(100% - var(--forge-toolbar-height));
+  position: relative;
+  overflow: hidden;
+  background-color: var(--forge-bg-light);
+  background-image: 
+    linear-gradient(
+      45deg,
+      var(--forge-checkerboard-light) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--forge-checkerboard-light) 75%,
+      var(--forge-checkerboard-light)
+    ),
+    linear-gradient(
+      45deg,
+      var(--forge-checkerboard-light) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--forge-checkerboard-light) 75%,
+      var(--forge-checkerboard-light)
+    );
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
 }
+
+/* ============================================================================
+   IMAGE DISPLAY & INTERACTION
+   ============================================================================ */
 
 .forge-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-    cursor: grab;
-    max-width: unset !important;
-    max-height: unset !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: grab;
+  max-width: unset !important;
+  max-height: unset !important;
+  touch-action: none;
 }
 
 .forge-image:active {
-    cursor: grabbing;
+  cursor: grabbing;
 }
+
+.forge-image:focus {
+  outline: 2px solid var(--primary-500, #0060df);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   FILE UPLOAD INPUT (HIDDEN)
+   ============================================================================ */
 
 .forge-file-upload {
-    display: none;
+  display: none;
 }
+
+/* ============================================================================
+   RESIZE HANDLE
+   ============================================================================ */
 
 .forge-resize-line {
-    width: 100%;
-    height: 6px;
-    background-image: linear-gradient(to bottom, grey 50%, darkgrey 50%);
-    background-size: 4px 4px;
-    background-repeat: repeat;
-    cursor: ns-resize;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  width: 100%;
+  height: var(--forge-toolbar-height);
+  background-image: linear-gradient(
+    to bottom,
+    var(--forge-resize-line-primary) 50%,
+    var(--forge-resize-line-secondary) 50%
+  );
+  background-size: 4px 4px;
+  background-repeat: repeat;
+  cursor: ns-resize;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
+.forge-resize-line:hover {
+  opacity: 0.8;
+}
+
+.forge-resize-line:focus {
+  outline: 1px solid var(--primary-500, #0060df);
+}
+
+/* ============================================================================
+   TOOLBAR STYLING
+   ============================================================================ */
+
+/**
+ * Static Toolbar - Always visible
+ * Used for persistent UI elements
+ */
 .forge-toolbar-static {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 10 !important;
-    background: rgba(47, 47, 47, 0.8);
-    padding: 6px 10px;
-    opacity: 1.0 !important;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10 !important;
+  background: var(--forge-toolbar-bg);
+  padding: 6px 10px;
+  opacity: 1.0 !important;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  backdrop-filter: blur(2px);
 }
 
+/**
+ * Dynamic Toolbar - Appears on hover
+ * Provides additional tools that don't clutter the UI
+ */
 .forge-toolbar {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 10;
-    background: rgba(47, 47, 47, 0.8);
-    padding: 6px 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  background: var(--forge-toolbar-bg);
+  padding: 6px 10px;
+  opacity: 0;
+  transition: opacity var(--forge-transition-fast);
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  backdrop-filter: blur(2px);
 }
 
-.forge-toolbar .forge-btn, .forge-toolbar-static .forge-btn {
-    padding: 2px 6px;
-    border: none;
-    background-color: #4a4a4a;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.forge-container:hover .forge-toolbar {
+  opacity: 1;
 }
 
-.forge-toolbar .forge-btn, .forge-toolbar-static .forge-btn:hover {
-    background-color: #5e5e5e;
+/* ============================================================================
+   TOOLBAR BUTTONS
+   ============================================================================ */
+
+.forge-toolbar .forge-btn,
+.forge-toolbar-static .forge-btn {
+  padding: 2px 6px;
+  border: 1px solid var(--button-secondary-border-color, #888);
+  background-color: var(--forge-btn-bg);
+  color: var(--forge-btn-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color var(--forge-transition-fast);
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
-.forge-toolbar .forge-btn, .forge-toolbar-static .forge-btn:active {
-    background-color: #3e3e3e;
+.forge-toolbar .forge-btn:hover,
+.forge-toolbar-static .forge-btn:hover {
+  background-color: var(--forge-btn-bg-hover);
 }
+
+.forge-toolbar .forge-btn:active,
+.forge-toolbar-static .forge-btn:active {
+  background-color: var(--forge-btn-bg-active);
+}
+
+.forge-toolbar .forge-btn:focus,
+.forge-toolbar-static .forge-btn:focus {
+  outline: 2px solid var(--primary-500, #0060df);
+  outline-offset: 1px;
+}
+
+/* ============================================================================
+   TOOLBAR LAYOUT CONTAINERS
+   ============================================================================ */
 
 .forge-toolbar-box-a {
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
 }
 
 .forge-toolbar-box-b {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
 }
+
+/* ============================================================================
+   TOOLBAR CONTROLS - COLOR PICKER
+   ============================================================================ */
 
 .forge-color-picker-block {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.forge-range-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
+/**
+ * Custom Styled Color Input
+ * Provides consistent styling across browsers
+ */
 .forge-toolbar-color {
-    border: none;
-    background: none;
-    padding: 3px;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    -webkit-appearance: none;
-    appearance: none;
-    cursor: pointer;
+  border: 1px solid var(--button-secondary-border-color, #888);
+  background: none;
+  padding: 3px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all var(--forge-transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
+.forge-toolbar-color:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.forge-toolbar-color:focus {
+  outline: 2px solid var(--primary-500, #0060df);
+  outline-offset: 2px;
+}
+
+/* WebKit Color Swatch Styling (Chrome, Safari, Edge) */
 .forge-toolbar-color::-webkit-color-swatch-wrapper {
-    padding: 0;
-    border-radius: 50%;
+  padding: 0;
+  border-radius: 50%;
 }
 
 .forge-toolbar-color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-    background: none;
+  border: none;
+  border-radius: 50%;
+  background: none;
 }
 
-.forge-toolbar-label {
-    color: white !important;
-    padding: 0 4px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 4px; /* Adjust margin as needed */
+/* ============================================================================
+   TOOLBAR CONTROLS - RANGE SLIDER
+   ============================================================================ */
+
+.forge-range-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .forge-toolbar-range {
+  min-width: 80px;
+  height: 24px;
 }
+
+/* ============================================================================
+   TOOLBAR LABELS & TYPOGRAPHY
+   ============================================================================ */
+
+.forge-toolbar-label {
+  color: var(--forge-btn-color);
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   SCRIBBLE INDICATOR OVERLAY
+   ============================================================================ */
 
 .forge-scribble-indicator {
-    position: relative;
-    border-radius: 50%;
-    border: 1px solid;
-    pointer-events: none;
-    display: none;
-    width: 80px;
-    height: 80px;
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--primary-500, #0060df);
+  pointer-events: none;
+  display: none;
+  width: 80px;
+  height: 80px;
+  box-shadow: 0 0 0 1px var(--primary-300, #4d94ff);
 }
+
+.forge-scribble-indicator.active {
+  display: block;
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
 
 .forge-no-select {
-    user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
+/* ============================================================================
+   UPLOAD HINT / PLACEHOLDER
+   ============================================================================ */
+
 .forge-upload-hint {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30%;
-    height: 30%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: 30%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--body-text-color, #666);
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - TABLET & MOBILE
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .forge-container {
+    height: 400px;
+  }
+
+  .forge-toolbar .forge-btn,
+  .forge-toolbar-static .forge-btn {
+    padding: 2px 4px;
+    font-size: 12px;
+  }
+
+  .forge-toolbar-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .forge-container {
+    height: 300px;
+  }
+
+  .forge-toolbar-static {
+    padding: 4px 6px;
+    gap: 2px;
+  }
+
+  .forge-toolbar {
+    padding: 4px 6px;
+    gap: 2px;
+  }
+
+  .forge-toolbar .forge-btn,
+  .forge-toolbar-static .forge-btn {
+    padding: 2px 3px;
+    font-size: 11px;
+  }
+
+  .forge-toolbar-color {
+    width: 16px;
+    height: 16px;
+  }
+
+  .forge-toolbar-label {
+    font-size: 10px;
+    padding: 0 2px;
+  }
+
+  .forge-scribble-indicator {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .forge-container {
+    height: 250px;
+  }
+
+  .forge-toolbar-box-a,
+  .forge-toolbar-box-b {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .forge-toolbar .forge-btn,
+  .forge-toolbar-static .forge-btn {
+    padding: 1px 2px;
+    font-size: 10px;
+    min-height: 20px;
+  }
+
+  .forge-toolbar-color {
+    width: 14px;
+    height: 14px;
+  }
+
+  .forge-upload-hint {
+    width: 60%;
+    height: 60%;
+    font-size: 12px;
+  }
+}
+
+/* ============================================================================
+   DARK MODE ENHANCEMENTS
+   ============================================================================ */
+
+.dark .forge-toolbar .forge-btn,
+.dark .forge-toolbar-static .forge-btn {
+  border-color: var(--neutral-600, #555);
+}
+
+.dark .forge-toolbar-label {
+  color: var(--neutral-100, #eee);
+}
+
+.dark .forge-upload-hint {
+  color: var(--neutral-400, #999);
+}
+
+.dark .forge-scribble-indicator {
+  border-color: var(--primary-400, #66b3ff);
+  box-shadow: 0 0 0 1px var(--primary-200, #99ccff);
+}
+
+/* ============================================================================
+   ACCESSIBILITY & KEYBOARD NAVIGATION
+   ============================================================================ */
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .forge-toolbar .forge-btn,
+  .forge-toolbar-static .forge-btn {
+    border-width: 2px;
+  }
+
+  .forge-scribble-indicator {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .forge-toolbar,
+  .forge-toolbar .forge-btn,
+  .forge-toolbar-static .forge-btn,
+  .forge-toolbar-color {
+    transition: none;
+  }
+}
+
+/* High contrast support for focus states */
+@media (prefers-contrast: more) {
+  .forge-toolbar .forge-btn:focus,
+  .forge-toolbar-static .forge-btn:focus,
+  .forge-toolbar-color:focus,
+  .forge-resize-line:focus {
+    outline-width: 3px;
+  }
 }
