@@ -440,3 +440,29 @@ function onEdit(editId, elem, afterMs, func) {
 
     return edited;
 }
+
+// Auto-add lock button to sliders to prevent accidental movement
+onAfterUiUpdate(function() {
+    var sliders = gradioApp().querySelectorAll('.gradio-slider');
+    sliders.forEach(function(slider) {
+        if (slider.querySelector('.slider-lock-btn')) return;
+        var label = slider.querySelector('label');
+        if (!label) return;
+
+        var lockBtn = document.createElement('button');
+        lockBtn.className = 'slider-lock-btn';
+        lockBtn.innerHTML = '🔓';
+        lockBtn.title = 'Lock/Unlock Slider';
+        lockBtn.style.cssText = 'background:none; border:none; cursor:pointer; font-size:12px; margin-left:6px; padding:0 2px; vertical-align:middle;';
+        
+        lockBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var isLocked = slider.classList.toggle('slider-locked');
+            lockBtn.innerHTML = isLocked ? '🔒' : '🔓';
+        });
+
+        label.appendChild(lockBtn);
+    });
+});
+

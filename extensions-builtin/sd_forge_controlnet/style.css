@@ -249,3 +249,36 @@
 .range-slider {
     margin-top: -8px;
 }
+
+/* --- Mobile User-Friendly Optimizations for ControlNet --- */
+@media screen and (max-width: 768px) {
+    /* ControlNet Accordions & Units di Mobile */
+    .controlnet .input-accordion {
+        flex: 1 1 100% !important;
+    }
+
+    /* Modal Photopea / Editor Pose di HP agar tampil penuh dengan aman */
+    .cnet-modal-content {
+        width: 100% !important;
+        height: 95vh !important;
+        margin: 2vh auto !important;
+        padding: 10px !important;
+    }
+
+    /* Tombol aksi ControlNet di mobile */
+    .cnet-download-pose a,
+    .cnet-close-preview,
+    .cnet-edit-pose,
+    .cnet-upload-pose,
+    .cnet-photopea-child-trigger {
+        font-size: small !important;
+        min-height: 2.2rem !important;
+        padding: 4px 8px !important;
+    }
+
+    /* Thumbnail gambar input ControlNet */
+    .cnet-thumbnail {
+        height: 4rem !important;
+    }
+}
+

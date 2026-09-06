@@ -177,3 +177,25 @@
     height: 30%;
     transform: translate(-50%, -50%);
 }
+
+/* --- Mobile User-Friendly Optimizations for Canvas / Image Editors --- */
+@media screen and (max-width: 768px) {
+    .forge-container {
+        height: 380px !important;
+    }
+
+    /* Toolbar buttons agar lebih besar dan mudah ditekan di layar sentuh */
+    .forge-toolbar .forge-btn, .forge-toolbar-static .forge-btn {
+        padding: 6px 10px !important;
+        font-size: 16px !important;
+        min-height: 2.2rem !important;
+        min-width: 2.2rem !important;
+    }
+
+    .forge-toolbar, .forge-toolbar-static {
+        padding: 4px 6px !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+    }
+}

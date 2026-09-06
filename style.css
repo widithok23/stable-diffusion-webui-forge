@@ -1703,3 +1703,66 @@ body.resizing .resize-handle {
 .forge_space_btn{
     min-width: 0 !important;
 }
+
+
+/* --- Slider Lock Feature --- */
+.slider-locked {
+    pointer-events: none !important;
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+
+/* --- Mobile User-Friendly Optimizations --- */
+@media screen and (max-width: 768px) {
+    /* Container & Spacing */
+    div.gradio-container {
+        padding: 0.25rem !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Tombol agar lebih mudah ditekan di layar sentuh */
+    button.primary, button.secondary, .gradio-button {
+        min-height: 2.8rem !important;
+        font-size: 1rem !important;
+    }
+
+    /* Padding & Margin penyesuaian elemen input */
+    .block {
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Tab navigation agar bisa di-scroll horizontal jika terlalu panjang */
+    div.tab-nav {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+    }
+
+    div.tab-nav button {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Galeri dan Preview gambar di mobile */
+    .gradio-gallery > div {
+        max-height: 60vh !important;
+    }
+
+    /* Kartu Extra Networks (Lora, Checkpoint, dll) agar pas di layar kecil */
+    .extra-network-pane .card, .standalone-card-preview.card {
+        width: 10rem !important;
+        height: 15rem !important;
+        margin: 0.25rem !important;
+    }
+
+    .extra-network-pane .card .actions .name {
+        font-size: 1.1em !important;
+    }
+
+    /* Sticky result panel penyesuaian */
+    #img2img_results, #txt2img_results, #extras_results {
+        position: relative !important;
+        top: 0 !important;
+    }
+}
+
