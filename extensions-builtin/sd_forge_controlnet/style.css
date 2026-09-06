@@ -9,10 +9,17 @@
 }
 
 .controlnet .input-accordion {
-    flex: 1 1 calc(50% - 10px);
-    /* Adjusts for the gap, default 2 columns */
+    flex: 1 1 100%;
+    /* Default to 1 column for better mobile compatibility */
     display: flex;
     align-items: center;
+}
+
+@media (min-width: 600px) {
+    .controlnet .input-accordion {
+        flex: 1 1 calc(50% - 10px);
+        /* 2 columns on screens wider than 600px */
+    }
 }
 
 /* Media query for screens smaller than a specific width */
