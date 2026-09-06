@@ -253,8 +253,16 @@
 /* --- Mobile User-Friendly Optimizations for ControlNet --- */
 @media screen and (max-width: 768px) {
     /* ControlNet Accordions & Units di Mobile */
-    .controlnet .input-accordion {
+    .controlnet .input-accordion,
+    .controlnet div.input-accordion.input-accordion-open {
         flex: 1 1 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        flex-direction: column !important;
+    }
+
+    .controlnet .svelte-vt1mxs {
+        flex-direction: column !important;
     }
 
     /* Modal Photopea / Editor Pose di HP agar tampil penuh dengan aman */
