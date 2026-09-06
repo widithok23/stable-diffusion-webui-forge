@@ -1731,16 +1731,21 @@ body.resizing .resize-handle {
         margin-bottom: 0.5rem !important;
     }
 
-    /* Tab navigation agar bisa di-scroll horizontal jika terlalu panjang */
-    div.tab-nav {
+    /* Tab navigation & Sub-tabs agar bisa di-scroll horizontal tanpa terpotong */
+    div.tab-nav, .tab-nav, .tabs > .tab-nav {
         overflow-x: auto !important;
+        overflow-y: hidden !important;
         flex-wrap: nowrap !important;
         white-space: nowrap !important;
+        display: flex !important;
+        flex-direction: row !important;
+        max-width: 100% !important;
     }
 
-    div.tab-nav button {
+    div.tab-nav button, .tab-nav button {
         padding: 0.5rem 0.75rem !important;
         font-size: 0.95rem !important;
+        flex-shrink: 0 !important;
     }
 
     /* Galeri dan Preview gambar di mobile */
@@ -1765,8 +1770,8 @@ body.resizing .resize-handle {
         top: 0 !important;
     }
 
-    /* Layout & Flex Fixes for Mobile to prevent messy wrapping */
-    .gradio-row, .wrap, div.form, .block {
+    /* Layout & Flex Fixes for Mobile (kecuali tab-nav) */
+    .gradio-row:not(:has(.tab-nav)), .wrap:not(:has(.tab-nav)), div.form:not(:has(.tab-nav)), .block:not(:has(.tab-nav)) {
         flex-direction: column !important;
         width: 100% !important;
         box-sizing: border-box !important;
