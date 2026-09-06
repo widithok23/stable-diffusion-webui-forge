@@ -1716,3 +1716,116 @@ body.resizing .resize-handle {
         margin: 0 !important;
     }
 }
+
+/* ==========================================================================
+   MOBILE RESPONSIVE & LAYOUT OPTIMIZATIONS (@media max-width: 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* 1. Global Reset: Force all gradio rows, columns, and containers to stack vertically */
+    .gradio-container,
+    .gradio-container .gr-row,
+    .gradio-container .gr-column,
+    .gradio-container .gr-form,
+    .gradio-container .gr-block,
+    .gradio-container .gr-box,
+    .gradio-container div[class*="row"],
+    .gradio-container div[class*="column"],
+    .gradio-container .tabs,
+    .gradio-container .tabitem,
+    .gradio-container .tab-item,
+    #txt2img_toprow,
+    #img2img_toprow,
+    #txt2img_prompt_container,
+    #img2img_prompt_container,
+    #txt2img_actions_column,
+    #img2img_actions_column,
+    #txt2img_settings,
+    #txt2img_results,
+    #img2img_settings,
+    #img2img_results,
+    .controlnet,
+    .controlnet div,
+    .input-accordion {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        flex: 1 1 100% !important;
+        box-sizing: border-box !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+
+    /* 2. Fix textareas, prompts, and inputs to fill width */
+    textarea.prompt,
+    .gradio-textbox textarea,
+    .gradio-textbox input,
+    .gradio-number input,
+    .gradio-dropdown input {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* 3. Hide resize handles on mobile */
+    .resize-handle {
+        display: none !important;
+    }
+
+    /* 4. Header / Quicksettings fix */
+    #quicksettings {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    #quicksettings > div,
+    #quicksettings > fieldset,
+    #quicksettings > div.model_selection {
+        min-width: 0 !important;
+        width: 100% !important;
+        flex: 1 1 100% !important;
+    }
+
+    /* 5. Navigation Tabs horizontally scrollable */
+    .tabs > div.tab-nav,
+    div.tab-nav {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        padding-bottom: 4px !important;
+    }
+
+    .tabs > div.tab-nav button,
+    div.tab-nav button {
+        flex: 0 0 auto !important;
+        font-size: 13px !important;
+        padding: 6px 12px !important;
+    }
+
+    /* 6. Image gallery / output container */
+    #txt2img_gallery,
+    #img2img_gallery,
+    .gallery-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 7. Action / Generate buttons */
+    #txt2img_generate,
+    #img2img_generate {
+        width: 100% !important;
+        min-height: 50px !important;
+        font-size: 16px !important;
+    }
+}

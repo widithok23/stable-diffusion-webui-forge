@@ -8,25 +8,58 @@
     /* Adjusts the space between items */
 }
 
+/* ControlNet sizing & layout fixes */
+.controlnet {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.controlnet .gr-form,
+.controlnet .gr-block,
+.controlnet .gr-box,
+.controlnet .gr-row,
+.controlnet div[class*="row"],
+.controlnet div[class*="form"] {
+    min-width: 0 !important;
+    width: 100% !important;
+}
+
+.controlnet div[class*="column"] {
+    min-width: 0 !important;
+    flex: 1 1 200px !important;
+}
+
 .controlnet .input-accordion {
-    flex: 1 1 100%;
-    /* Default to 1 column for better mobile compatibility */
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
     display: flex;
     align-items: center;
 }
 
-@media (min-width: 600px) {
-    .controlnet .input-accordion {
-        flex: 1 1 calc(50% - 10px);
-        /* 2 columns on screens wider than 600px */
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+    .controlnet,
+    .controlnet .input-accordion,
+    .controlnet div[class*="column"],
+    .controlnet div[class*="row"],
+    .controlnet .gr-row,
+    .controlnet .gr-column {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        flex: 1 1 100% !important;
     }
-}
 
-/* Media query for screens smaller than a specific width */
-@media (max-width: 600px) {
-    .controlnet .input-accordion {
-        flex: 1 1 100%;
-        /* Changes to 1 column when window width is ≤ 600px */
+    .controlnet_control_type_filter_group .wrap,
+    .controlnet_control_type_filter_group div[class*="wrap"] {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+        width: 100% !important;
     }
 }
 /* Input image thumbnail */
@@ -234,18 +267,42 @@
     color: var(--block-label-text-color);
 }
 
-.controlnet_control_type_filter_group label {
-    background: unset !important;
-    border: unset !important;
-    margin-left: -10px !important;
+/* ControlNet Control Type filter group formatting */
+.controlnet_control_type_filter_group {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.controlnet_control_type_filter_group,
+.controlnet_control_type_filter_group > fieldset,
+.controlnet_control_type_filter_group div {
+    min-width: 0 !important;
 }
 
 .controlnet_control_type_filter_group > span {
     display: none !important;
 }
 
-.controlnet_control_type_filter_group > .wrap {
-    margin-top: -20px !important;
+.controlnet_control_type_filter_group > .wrap,
+.controlnet_control_type_filter_group div[class*="wrap"] {
+    margin-top: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    width: 100% !important;
+}
+
+.controlnet_control_type_filter_group label {
+    background: var(--background-fill-secondary) !important;
+    border: 1px solid var(--border-color-primary) !important;
+    border-radius: var(--radius-sm, 4px) !important;
+    margin: 2px !important;
+    padding: 3px 8px !important;
+    flex: 0 1 auto !important;
+    min-width: fit-content !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
 }
 
 .cnet-toolbutton {
