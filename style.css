@@ -1793,26 +1793,37 @@ body.resizing .resize-handle {
     #quicksettings {
         display: flex !important;
         flex-wrap: wrap !important;
-        gap: 0.25rem !important;
+        gap: 0.35rem !important;
         align-items: center !important;
     }
 
     #quicksettings > div, #quicksettings > fieldset {
         flex: 1 1 auto !important;
-        min-width: 120px !important;
+        min-width: 140px !important;
         max-width: 100% !important;
         width: auto !important;
     }
 
+    /* Membuat baris Checkpoint dan Tombol Refresh di sebelah kanannya */
     #quicksettings > div.model_selection {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
         min-width: 100% !important;
+        gap: 0.35rem !important;
     }
 
-    /* Tombol refresh dan tombol aksi kecil agar menyesuaikan konten (wrap content) */
-    button[id$="_reload"], button[id*="refresh"], .gr-button-small, .cnet-toolbutton {
-        flex: 0 1 auto !important;
+    #quicksettings > div.model_selection > div {
+        flex: 1 !important;
+    }
+
+    /* Tombol refresh dan tombol aksi kecil agar berada di kanan checkpoint */
+    #quicksettings button[id$="_reload"], #quicksettings button[id*="refresh"], #quicksettings .cnet-toolbutton {
+        flex: 0 0 auto !important;
         width: auto !important;
-        min-width: unset !important;
+        min-width: 2.5rem !important;
+        min-height: 2.5rem !important;
+        margin-top: 0 !important;
     }
 }
 
